@@ -16,14 +16,15 @@ class RandomUserListRepositoryImpl @Inject constructor(
     override suspend fun getUsers(page: Int) : List<UserModel> {
         val lisOfUsers = mutableListOf<UserModel>()
         val response = api.getUsers(page = page)
+        val bookmarkedIds = database.userDao().getBookmarkedUsers().map { it.userId }.toSet()
         for (user in response.results) {
             val userModel = UserModel(
-                userId =user.login.uuid,
+                userId = user.login.uuid,
                 name = "${user.name.first} ${user.name.last}",
                 email = user.email,
                 phone = user.phone,
                 picture = user.picture.thumbnail,
-                isBookmarked = false,
+                isBookmarked = bookmarkedIds.contains(user.login.uuid),
             )
             lisOfUsers.add(userModel)
         }
@@ -39,6 +40,6 @@ class RandomUserListRepositoryImpl @Inject constructor(
     }
 
     override suspend fun deleteBookmarkedUser(userId: String) {
-
+        database.userDao().deleteBookmarkedUser(userId)
     }
 }

@@ -6,7 +6,7 @@ import com.example.userbrowserapp.domain.model.UserModel
 
 @Database(
     entities = [UserModel::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class UserDatabase : RoomDatabase() {

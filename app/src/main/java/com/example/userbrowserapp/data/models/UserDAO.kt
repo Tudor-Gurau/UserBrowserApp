@@ -9,11 +9,11 @@ import com.example.userbrowserapp.domain.model.UserModel
 interface UserDAO {
 
     @Query("SELECT * FROM bookmarked_users")
-    fun getBookmarkedUsers(): List<UserModel>
+    suspend fun getBookmarkedUsers(): List<UserModel>
 
     @Insert(onConflict = androidx.room.OnConflictStrategy.REPLACE)
-    fun bookmarkUser(user: UserModel)
+    suspend fun bookmarkUser(user: UserModel)
 
     @Query("DELETE FROM bookmarked_users WHERE userId = :userId")
-    fun deleteBookmarkedUser(userId: String)
+    suspend fun deleteBookmarkedUser(userId: String)
 }

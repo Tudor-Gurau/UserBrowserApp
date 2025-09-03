@@ -51,18 +51,13 @@ android {
 dependencies {
     //Architecture Library
     implementation(libs.androidx.activity.ktx)
-    implementation(libs.androidx.fragment.ktx)
-    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.swiperefreshlayout)
 
-    //View Model KTX and LiveData and Live Cycle
+    //View Model KTX and Live Cycle
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.palette.ktx)
 
     //noinspection LifecycleAnnotationProcessorWithJava8
     kapt(libs.androidx.lifecycle.compiler)
-    implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
     //Unit Test
@@ -81,7 +76,6 @@ dependencies {
     //Retrofit request
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
-    implementation(libs.retrofit.adapter.rxjava2)
 
     //Coil load Image
     implementation(libs.coil)
@@ -99,19 +93,13 @@ dependencies {
     ksp(libs.dagger.hilt.compiler)
     ksp(libs.androidx.hilt.compiler)
 
-    //Networking
-    implementation(libs.ktor.client.okhttp)
-
     //Compose
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.runtime)
-    implementation(libs.androidx.compose.runtime.livedata)
     implementation(libs.androidx.ui)
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)

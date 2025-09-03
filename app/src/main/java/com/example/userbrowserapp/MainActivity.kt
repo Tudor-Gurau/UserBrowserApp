@@ -5,45 +5,34 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.userbrowserapp.domain.repository.RandomUserListRepository
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.userbrowserapp.domain.model.UserModel
+import com.example.userbrowserapp.presentation.dashboard.DashboardScreen
+import com.example.userbrowserapp.presentation.detailed.DetailedScreen
 import com.example.userbrowserapp.ui.theme.UserBrowserAppTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @Inject lateinit var repository: RandomUserListRepository
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Just to test the repository
-        CoroutineScope(Dispatchers.IO).launch {
-            val users = repository.getUsers(1)
-            println("Fetched $users users")
-
-        }
-
         enableEdgeToEdge()
         setContent {
             UserBrowserAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    UserBrowserApp()
                 }
             }
         }
@@ -51,17 +40,39 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    UserBrowserAppTheme {
-        Greeting("Android")
+fun UserBrowserApp() {
+    val navController = rememberNavController()
+    var selectedUser by remember { mutableStateOf<UserModel?>(null) }
+    var refreshKey by remember { mutableStateOf(0) }
+    
+    NavHost(
+        navController = navController,
+        startDestination = "dashboard"
+    ) {
+        composable("dashboard") {
+            DashboardScreen(
+                onUserClick = { user ->
+                    selectedUser = user
+                    navController.navigate("detailed")
+                },
+                refreshKey = refreshKey
+            )
+        }
+        
+        composable("detailed") {
+            val user = selectedUser
+            if (user != null) {
+                DetailedScreen(
+                    user = user,
+                    onBackClick = { 
+                        refreshKey++ // Force dashboard refresh
+                        navController.popBackStack() 
+                    }
+                )
+            } else {
+                // Handle case where no user is selected
+                navController.popBackStack()
+            }
+        }
     }
 }

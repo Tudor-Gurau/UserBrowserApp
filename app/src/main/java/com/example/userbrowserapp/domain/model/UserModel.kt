@@ -10,8 +10,7 @@ import androidx.room.PrimaryKey
 data class UserModel(
     @PrimaryKey(
         autoGenerate = false
-    ) val id: Int? = 1,
-    val userId: String,
+    ) val userId: String,
     val name: String,
     val email: String,
     val phone: String,
