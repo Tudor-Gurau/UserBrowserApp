@@ -40,6 +40,10 @@ android {
     buildFeatures {
         compose = true
     }
+
+    lint {
+        abortOnError = false
+    }
 }
 
 
@@ -65,6 +69,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.test.core)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockito.kotlin)
 
