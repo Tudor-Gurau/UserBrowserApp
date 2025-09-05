@@ -78,13 +78,21 @@ fun DashboardScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("User Browser") },
+                title = {
+                    if (!showBookmarkedUsers) {
+                        Text("User Browser")
+
+                    } else
+                    {
+                        Text("Bookmarked Users")
+                    }
+                        },
                 actions = {
                     IconButton(
                         onClick = { showBookmarkedUsers = !showBookmarkedUsers }
                     ) {
                         Icon(
-                            imageVector = Icons.Default.Favorite,
+                            imageVector = if (showBookmarkedUsers) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                             contentDescription = "Toggle Bookmarked Users",
                             tint = if (showBookmarkedUsers) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
                         )
