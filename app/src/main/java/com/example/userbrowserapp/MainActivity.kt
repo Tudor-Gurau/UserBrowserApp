@@ -65,12 +65,11 @@ fun UserBrowserApp() {
                 DetailedScreen(
                     user = user,
                     onBackClick = { 
-                        refreshKey++ // Force dashboard refresh
+                        refreshKey++
                         navController.popBackStack() 
                     }
                 )
             } else {
-                // Handle case where no user is selected
                 navController.popBackStack()
             }
         }

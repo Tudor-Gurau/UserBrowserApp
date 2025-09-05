@@ -19,3 +19,6 @@ PRESENTATION LAYER
 14) handled the user data and bookmarked user data states when top app bar button is clicked
 15) handled the bookmarking toggle functionality in both viewmodels
 16) handled the pull-to-refresh and end-reached functionality in the main screen composable 
+
+TESTS
+17) created unit tests based on the viewmodel 

@@ -218,7 +218,6 @@ fun UserCard(
                 contentScale = ContentScale.Crop
             )
             
-            // User Info
             Column(
                 modifier = Modifier
                     .weight(1f)
@@ -243,7 +242,6 @@ fun UserCard(
                 )
             }
             
-            // Bookmark Button
             IconButton(onClick = onBookmarkClick) {
                 Icon(
                     imageVector = if (user.isBookmarked) Icons.Default.Favorite else Icons.Default.FavoriteBorder,

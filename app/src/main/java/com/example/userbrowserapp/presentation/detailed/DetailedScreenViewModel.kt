@@ -1,5 +1,6 @@
 package com.example.userbrowserapp.presentation.detailed
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.userbrowserapp.domain.model.UserModel
@@ -37,7 +38,7 @@ class DetailedScreenViewModel @Inject constructor(
                     _user.value = currentUser.copy(isBookmarked = true)
                 }
             } catch (e: Exception) {
-                // Handle error
+                Log.d("toggleBookmark", e.toString())
             }
         }
     }

@@ -55,6 +55,7 @@ dependencies {
 
     //View Model KTX and Live Cycle
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    testImplementation(libs.junit.jupiter)
 
     //noinspection LifecycleAnnotationProcessorWithJava8
     kapt(libs.androidx.lifecycle.compiler)
@@ -67,6 +68,9 @@ dependencies {
     androidTestImplementation(libs.androidx.test.core)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.mockk)
+    androidTestImplementation(libs.mockk.android)
+    testImplementation(libs.turbine)
 
     //Room Database
     implementation(libs.androidx.room.runtime)

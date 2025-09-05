@@ -1,5 +1,6 @@
 package com.example.userbrowserapp.presentation.dashboard
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.userbrowserapp.domain.model.UserModel
@@ -80,7 +81,7 @@ class DashboardViewModel @Inject constructor(
                 val bookmarked = repository.getBookmarkedUsers()
                 _bookmarkedUsers.value = bookmarked
             } catch (e: Exception) {
-                // Handle error silently for bookmarked users
+                Log.e("loadBookmarkedUsers", e.toString())
             }
         }
     }
@@ -102,7 +103,7 @@ class DashboardViewModel @Inject constructor(
                     _usersState.value = Resource.Success(allUsers.toList())
                 }
             } catch (e: Exception) {
-                // Handle error
+                Log.e("toggleBookmark", e.toString())
             }
         }
     }
@@ -117,7 +118,6 @@ class DashboardViewModel @Inject constructor(
 
     fun refreshAllData() {
         loadBookmarkedUsers()
-        // Also refresh the main list to reflect bookmark changes
         viewModelScope.launch {
             try {
                 val bookmarkedIds = repository.getBookmarkedUsers().map { it.userId }.toSet()
@@ -126,7 +126,7 @@ class DashboardViewModel @Inject constructor(
                 }
                 _usersState.value = Resource.Success(allUsers.toList())
             } catch (e: Exception) {
-                // Handle error
+                Log.d("loadBookmarkedUsers", e.toString())
             }
         }
     }
